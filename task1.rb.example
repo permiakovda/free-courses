@@ -1,3 +1,41 @@
-# Task 1
+c, a, b = ARGV[0], ARGV[1].to_i, ARGV[2].to_i
 
-# Put your code here
+cNew = 0
+
+#массив букв для преобразования в различные сис счисления от a до z
+charArray = ("a".."z").to_a
+
+#обработка входного числа - по символьно.
+for x in 0..(c.length-1) do 
+	if c[x].to_i.to_s == c[x]
+		
+		cNew = cNew + (c[x].to_i)*(a**(c.length-x-1))
+	else	
+		for d in 0..charArray.length do
+			if c[x] == charArray[d]
+				cNew = cNew + (d+10)*(a**(c.length-x-1))
+			end
+		end
+	end
+end
+
+
+#теперь переходим из десятичной системы в требуемую
+bNew = ""
+
+while cNew != 0
+	if cNew%b > 9
+		for d in 0..charArray.length do
+			if cNew%b == (d+10)
+				bNew = bNew + charArray[d]
+			end
+		end
+		cNew = cNew/b
+	else
+		bNew = bNew + (cNew%b).to_s
+		cNew = cNew/b
+	end
+end
+
+#поменять местами последовательность символов
+puts(bNew.reverse!)
